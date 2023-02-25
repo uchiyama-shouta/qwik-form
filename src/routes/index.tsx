@@ -8,9 +8,8 @@ import { WrapperWithShadow } from "~/components/WrapperWithShadow";
 
 export const useSignUpAction = action$(({ email, password }, { redirect }) => {
   console.log(email, password);
-
   return redirect(302, "/success");
-}, zod$({ email: z.string().email(), password: z.string().min(8) }));
+}, zod$({ email: z.string().email({ message: "invalid email" }), password: z.string().min(8, { message: "invalid password" }) }));
 
 export default component$(() => {
   const action = useSignUpAction();
@@ -20,9 +19,14 @@ export default component$(() => {
 
       <WrapperWithShadow>
         <Form class="space-y-6" action={action}>
-          <TextInput label="Email address" type="email" />
-          <TextInput label="Password" type="password" />
-          {action.value?.fieldErrors?.password}
+          <TextInput label="Email address" type="email" name="email" />
+          <TextInput
+            label="Password"
+            type="password"
+            name="password"
+            errorMessage={action.value?.fieldErrors?.password}
+          />
+
           <Button type="submit">Sign in</Button>
         </Form>
       </WrapperWithShadow>

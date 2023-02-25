@@ -4,7 +4,7 @@ import { SectionTitle } from "~/components/SectionTitle";
 export default component$(() => {
   return (
     <div>
-      <SectionTitle>Sign in</SectionTitle>
+      <SectionTitle>Success Sign in</SectionTitle>
     </div>
   );
 });

@@ -1,9 +1,20 @@
-import { component$ } from '@builder.io/qwik';
-import { type DocumentHead, loader$, action$, zod$, z, Form } from '@builder.io/qwik-city';
+import { component$ } from "@builder.io/qwik";
+import {
+  type DocumentHead,
+  loader$,
+  action$,
+  zod$,
+  z,
+  Form,
+} from "@builder.io/qwik-city";
+import { Button } from "~/components/Button";
+import { SectionTitle } from "~/components/SectionTitle";
+import { TextInput } from "~/components/TextInput";
+import { WrapperWithShadow } from "~/components/WrapperWithShadow";
 
-interface ListItem {
+type ListItem = {
   text: string;
-}
+};
 
 export const list: ListItem[] = [];
 
@@ -28,22 +39,24 @@ export default component$(() => {
   const action = useAddToListAction();
 
   return (
-    <>
-      <h1>Form Action TODO list</h1>
-      <ul>
+    <WrapperWithShadow>
+      <SectionTitle>Form Action TODO list</SectionTitle>
+      <ul class="mt-3">
         {list.value.map((item) => (
           <li>{item.text}</li>
         ))}
       </ul>
       <Form action={action} spaReset>
-        <input type="text" name="text" required />
-        <button type="submit">Add item</button>
+        <TextInput type="text" name="text" required />
+        <Button type="submit">Add item</Button>
       </Form>
-      <p>This little app works even when JavaScript is disabled.</p>
-    </>
+      <p class={"mt-3"}>
+        This little app works even when JavaScript is disabled.
+      </p>
+    </WrapperWithShadow>
   );
 });
 
 export const head: DocumentHead = {
-  title: 'Qwik Flower',
+  title: "Qwik Flower",
 };
